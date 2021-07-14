@@ -28,10 +28,15 @@ public class Wallet {
     }
 
     private List<TX> txs = new ArrayList<TX>();
+    private Keychain keychain;
+    private long balance;
 
     public List<TX> getTXs(){
         return this.txs;
     }
+    public Keychain getKeychain(){ return this.keychain; }
+    public double getBalance(){ return (this.balance / 1000000000000.0); }
+    public long getBalanceMojo(){ return this.balance; }
 
     public void mock(){
         for(int position = 0; position < 25; ++position) txs.add(new Wallet.TX(
@@ -43,6 +48,8 @@ public class Wallet {
                 1.185623938471*(position/4),
                 position % 14
         ));
+        keychain = new Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda");
+        balance = 100050000000000L;
     }
 
     public static class TX {

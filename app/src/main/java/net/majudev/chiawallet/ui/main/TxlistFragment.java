@@ -53,7 +53,7 @@ public class TxlistFragment extends Fragment {
             }
         };
         //handler.post(runnable);
-        handler.postDelayed(runnable, 15000);
+        handler.post(runnable);
     }
 
     @Override

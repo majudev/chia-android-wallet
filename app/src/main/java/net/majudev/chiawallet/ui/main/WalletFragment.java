@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,6 +25,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,8 +61,8 @@ public class WalletFragment extends Fragment {
             @Override
             public void run() {
                 // Pull changes from Wallet singleton every 5 seconds
-                model.setBalance(100.103);
-                model.setKeychain(new Wallet.Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda"));
+                model.setBalance(Wallet.getInstance().getBalance());
+                model.setKeychain(Wallet.getInstance().getKeychain());
                 if (updater_on) {
                     handler.postDelayed(this, 5000);
                 }
@@ -91,6 +94,44 @@ public class WalletFragment extends Fragment {
                 String balance2 = inflater.getContext().getString(R.string.wallet_balance2);
                 String balancet = balance1 + " " + b + " " + balance2;
                 balance.setText(balancet);
+            }
+        });
+        receive_address_qr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) inflater.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText(inflater.getContext().getString(R.string.wallet_clip_label), receive_address.getText());
+                clipboard.setPrimaryClip(clip);
+                Snackbar.make(view, "Address copied to your clipboard!", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        final Button show_tutorial = binding.showTutorial;
+        final Button show_seed = binding.showSeed;
+        final Button purge_wallet = binding.clearWallet;
+        final Button donate = binding.donate;
+        show_tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        show_seed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        purge_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        donate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
             }
         });
         return root;
