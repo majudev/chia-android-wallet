@@ -1,5 +1,7 @@
 package net.majudev.chiawallet;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.majudev.chiawallet.chia.Wallet;
 import net.majudev.chiawallet.ui.main.SectionsPagerAdapter;
 import net.majudev.chiawallet.databinding.ActivityMainBinding;
+import net.majudev.chiawallet.ui.main.SetupDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         // setting view scope
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // setting up seed, running setup dialog
+        if(!Wallet.getInstance().initialize(this)){
+            SetupDialogFragment f = new SetupDialogFragment(this);
+            f.show(this.getSupportFragmentManager(), "SetupDialog");
+        }
 
         // setting up tabs
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());

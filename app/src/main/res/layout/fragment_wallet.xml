@@ -39,7 +39,6 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:padding="10dp"
-                    android:text="Addressasdgfasfdsdfasdfasdfasfd"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 

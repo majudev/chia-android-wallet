@@ -39,6 +39,7 @@ public class TxlistFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updater_on = true;
         model = new ViewModelProvider(this).get(WalletViewModel.class);
 
         Handler handler = new Handler();
@@ -52,7 +53,6 @@ public class TxlistFragment extends Fragment {
                 }
             }
         };
-        //handler.post(runnable);
         handler.post(runnable);
     }
 

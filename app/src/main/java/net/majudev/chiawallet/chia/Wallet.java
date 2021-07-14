@@ -1,5 +1,8 @@
 package net.majudev.chiawallet.chia;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -48,8 +51,18 @@ public class Wallet {
                 1.185623938471*(position/4),
                 position % 14
         ));
-        keychain = new Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda");
+        //keychain = new Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda");
         balance = 100050000000000L;
+    }
+
+    public boolean initialize(Activity activity){
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        if(sharedPref.contains("seed")){
+            String seed = sharedPref.getString("seed", null);
+            if(seed == null) return false;
+            this.keychain = new Keychain(seed);
+            return true;
+        }else return false;
     }
 
     public static class TX {
@@ -81,11 +94,14 @@ public class Wallet {
     }
 
     public static class Keychain {
+        public final String seed;
         public final String receive_address;
         public Drawable receive_address_qr;
 
-        public Keychain(String pubkey){
-            this.receive_address = pubkey;
+        public Keychain(String seed){
+            this.seed = seed;
+            //this.receive_address = pubkey;
+            this.receive_address = "placeholder";
 
             QRGEncoder pubkey_qr_encoder = new QRGEncoder(this.receive_address, null, QRGContents.Type.TEXT, 1000);
             try {

@@ -6,9 +6,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -54,6 +57,7 @@ public class WalletFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updater_on = true;
         model = new ViewModelProvider(this).get(WalletViewModel.class);
 
         Handler handler = new Handler();
@@ -62,7 +66,7 @@ public class WalletFragment extends Fragment {
             public void run() {
                 // Pull changes from Wallet singleton every 5 seconds
                 model.setBalance(Wallet.getInstance().getBalance());
-                model.setKeychain(Wallet.getInstance().getKeychain());
+                if(Wallet.getInstance().getKeychain() != null) model.setKeychain(Wallet.getInstance().getKeychain());
                 if (updater_on) {
                     handler.postDelayed(this, 5000);
                 }
@@ -125,7 +129,21 @@ public class WalletFragment extends Fragment {
         purge_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getActivity().getString(R.string.wallet_purge_title))
+                        .setMessage(getActivity().getString(R.string.wallet_purge_message))
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.clear();
+                                editor.commit();
+                                getActivity().finish();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
         donate.setOnClickListener(new View.OnClickListener() {

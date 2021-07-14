@@ -18,4 +18,18 @@
     <string name="wallet_show_seed">Show seed (dangerous)</string>
     <string name="wallet_purge">Clear wallet (dangerous)</string>
     <string name="wallet_donate">Make a donation</string>
+    <string name="wallet_purge_title">Dangerous!</string>
+    <string name="wallet_purge_message">Do you really want to remove your wallet data? This is irreversible!</string>
+
+    <string name="setup_hello">Hello!</string>
+    <string name="setup_helper1">In order to use this app, you have to create or import your wallet. Please select what you\'d like to do.</string>
+    <string name="setup_radio_new">Create new wallet</string>
+    <string name="setup_radio_import">Import my wallet using seed</string>
+    <string name="setup_next">Next</string>
+    <string name="setup_helper2">Creation time!</string>
+    <string name="setup_helper3">Below is your wallet recovery phrase. Write it down and keep it safe. You will have to enter some of these words on the next screen, to make sure you did it right.</string>
+    <string name="setup_helper4">Please enter the following words:</string>
+    <string name="setup_wordno">word #</string>
+    <string name="setup_helper5">Import time!</string>
+    <string name="setup_helper6">Please enter your seed:</string>
 </resources>
