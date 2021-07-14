@@ -7,9 +7,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import net.majudev.chiawallet.R;
+import net.majudev.chiawallet.chia.proto.BIP39;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -95,12 +99,15 @@ public class Wallet {
 
     public static class Keychain {
         public final String seed;
+        public final byte[] bip39_privkey;
         public final String receive_address;
         public Drawable receive_address_qr;
 
-        public Keychain(String seed){
+        public Keychain(String seed) {
             this.seed = seed;
             //this.receive_address = pubkey;
+            this.bip39_privkey = BIP39.derievePrivkey(seed, "");
+
             this.receive_address = "placeholder";
 
             QRGEncoder pubkey_qr_encoder = new QRGEncoder(this.receive_address, null, QRGContents.Type.TEXT, 1000);
@@ -110,6 +117,17 @@ public class Wallet {
             } catch (Exception e) {
                 receive_address_qr = Resources.getSystem().getDrawable(R.drawable.chia_logo);
             }
+        }
+
+        private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+        public static String bytesToHex(byte[] bytes) {
+            char[] hexChars = new char[bytes.length * 2];
+            for (int j = 0; j < bytes.length; j++) {
+                int v = bytes[j] & 0xFF;
+                hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+                hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+            }
+            return new String(hexChars);
         }
     }
 }

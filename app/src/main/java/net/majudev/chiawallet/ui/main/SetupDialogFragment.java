@@ -1205,6 +1205,10 @@ public class SetupDialogFragment extends DialogFragment implements DialogInterfa
                             activity.finish();
                         }
                         seedhelper.commit(activity);
+                        if(!Wallet.getInstance().initialize(activity)){
+                            Snackbar.make(v, "Critical error", BaseTransientBottomBar.LENGTH_LONG).show();
+                            activity.finish();
+                        }
 
                         // Progress to create step (show seed)
                         root.dismiss();

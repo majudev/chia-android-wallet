@@ -20,6 +20,9 @@
     <string name="wallet_donate">Make a donation</string>
     <string name="wallet_purge_title">Dangerous!</string>
     <string name="wallet_purge_message">Do you really want to remove your wallet data? This is irreversible!</string>
+    <string name="wallet_showseed_title">Dangerous!</string>
+    <string name="wallet_showseed_message">Do you want to show your wallet seed? Make sure nobody else can see it. It might be used to steal your coins!</string>
+    <string name="wallet_showseed_showntitle">Your seed is:</string>
 
     <string name="setup_hello">Hello!</string>
     <string name="setup_helper1">In order to use this app, you have to create or import your wallet. Please select what you\'d like to do.</string>

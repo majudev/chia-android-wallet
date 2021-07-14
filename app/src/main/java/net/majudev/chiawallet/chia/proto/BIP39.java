@@ -1,5 +1,13 @@
 package net.majudev.chiawallet.chia.proto;
 
+import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -2055,4 +2063,70 @@ public class BIP39 {
             "zone",
             "zoo"
     ));
+
+    public static String generateSeed(){
+        //SecureRandom random = new SecureRandom();
+        byte[] entropy = new byte[32];
+        //random.nextBytes(entropy);
+        for(int i = 0; i < 32; ++i) entropy[i] = (byte) (i);
+
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] checksum = digest.digest(entropy);
+            byte[] entropyfull = new byte[33];
+            for(int i = 0; i < 32; ++i) entropyfull[i] = entropy[i];
+            entropyfull[32] = checksum[0];
+
+            BigInteger bi = new BigInteger(entropyfull);
+            BigInteger mask = BigInteger.valueOf(2047);
+            BigInteger state = bi.and(mask);
+            ArrayList<String> seedwords = new ArrayList<String>();
+            seedwords.add(wordlist.get(state.intValue()));
+            for(int i = 1; i < 24; ++i){
+                bi = bi.shiftRight(11);
+                state = bi.and(mask);
+                seedwords.add(0, wordlist.get(state.intValue()));
+            }
+            String seed = seedwords.get(0);
+            for(int i = 1; i < seedwords.size(); ++i) seed += " " + seedwords.get(i);
+            return seed;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean verifySeed(String seed){
+        String[] lwordlist = seed.split(" ");
+        if(lwordlist.length != 24) return false;
+        BigInteger bigint = BigInteger.valueOf(0);
+        for(int i = 0; i < 24; ++i){
+            BigInteger entry = BigInteger.valueOf(wordlist.indexOf(lwordlist[i]));
+            bigint = bigint.shiftLeft(11);
+            bigint = bigint.or(entry);
+        }
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] raw = new byte[32];
+            byte[] output = new byte[33];
+            for(int i = 32; i >= 0; --i){
+                output[i] = (byte) bigint.and(BigInteger.valueOf(255)).intValue();
+                bigint = bigint.shiftRight(8);
+            }
+            for(int i = 0; i < raw.length; ++i){
+                raw[i] = output[i];
+            }
+            byte[] checksum = digest.digest(raw);
+            return checksum[0] == output[32];
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static byte[] derievePrivkey(String seed, String password) {
+        String salt = "mnemonic" + password;
+        final byte[] hash = PBKDF2SHA512.derive(seed, salt, 2048, 64);
+        return hash;
+    }
 }

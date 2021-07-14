@@ -123,13 +123,28 @@ public class WalletFragment extends Fragment {
         show_seed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getActivity().getString(R.string.wallet_showseed_title))
+                        .setMessage(getActivity().getString(R.string.wallet_showseed_message))
+                        .setIcon(android.R.drawable.ic_menu_view)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle(getActivity().getString(R.string.wallet_showseed_showntitle))
+                                        .setMessage(Wallet.getInstance().getKeychain().seed)
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                //
+                                            }}).show();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
         purge_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Work in progess", Snackbar.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
                         .setTitle(getActivity().getString(R.string.wallet_purge_title))
                         .setMessage(getActivity().getString(R.string.wallet_purge_message))

@@ -3,6 +3,7 @@ package net.majudev.chiawallet.chia;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import net.majudev.chiawallet.chia.proto.BIP39;
 
@@ -15,11 +16,13 @@ public class SeedUtil {
         for(String lseed : this.seedarray){
             if(!wordExists(lseed)) return false;
         }
-        return true;
+        return BIP39.verifySeed(this.seed);
     }
 
-    public void selfpopulate(){
-        this.populate("media lab aware bright spawn month garage neutral genuine cancel phone shiver promote muffin nature actress random mad cover verify frown west grief enact");
+    public boolean selfpopulate(){
+        String lseed = BIP39.generateSeed();
+        if(lseed == null) return false;
+        return this.populate(lseed);
     }
 
     public void commit(Activity activity){
