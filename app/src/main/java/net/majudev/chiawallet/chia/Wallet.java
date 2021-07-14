@@ -6,9 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import net.majudev.chiawallet.R;
-import net.majudev.chiawallet.ui.main.TxlistContentManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +33,7 @@ public class Wallet {
         return this.txs;
     }
 
-    private void mock(){
+    public void mock(){
         for(int position = 0; position < 25; ++position) txs.add(new Wallet.TX(
                 "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015" + position,
                 (position % 2 == 0) ? TX.Direction.OUT : TX.Direction.IN,

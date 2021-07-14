@@ -22,12 +22,20 @@ public class WalletViewModel extends ViewModel {
         this.keychain.setValue(keychain);
     }
 
+    public void setTXList(List<Wallet.TX> txs){
+        this.txlist.setValue(txs);
+    }
+
     public LiveData<Double> getBalance(){
         return this.balance;
     }
 
     public LiveData<Wallet.Keychain> getKeychain(){
         return this.keychain;
+    }
+
+    public LiveData<List<Wallet.TX>> getTXList(){
+        return this.txlist;
     }
     /*private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {

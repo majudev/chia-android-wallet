@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
 public class WalletFragment extends Fragment {
     WalletViewModel model;
     FragmentWalletBinding binding;
+    boolean updater_on = true;
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -50,8 +52,20 @@ public class WalletFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = new ViewModelProvider(this).get(WalletViewModel.class);
-        model.setBalance(100.103);
-        model.setKeychain(new Wallet.Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda"));
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                // Pull changes from Wallet singleton every 5 seconds
+                model.setBalance(100.103);
+                model.setKeychain(new Wallet.Keychain("xch1n7k27dk83kx9teadk5rjqk72kjluhg5lam8xz22tuyv9z3rrqcpqu0pmda"));
+                if (updater_on) {
+                    handler.postDelayed(this, 5000);
+                }
+            }
+        };
+        handler.post(runnable);
     }
 
     @Override
@@ -85,6 +99,7 @@ public class WalletFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        updater_on = false;
         binding = null;
     }
 }

@@ -1,11 +1,15 @@
 package net.majudev.chiawallet.ui.main;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +19,9 @@ import android.widget.TextView;
 
 import net.majudev.chiawallet.R;
 import net.majudev.chiawallet.chia.Wallet;
-import net.majudev.chiawallet.ui.main.TxlistContentManager.TxlistItem;
 import net.majudev.chiawallet.databinding.FragmentTxlistBinding;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,21 +29,28 @@ import java.util.Locale;
  * {@link RecyclerView.Adapter} that can display a {@link TxlistItem}.
  */
 public class TxlistAdapter extends RecyclerView.Adapter<TxlistAdapter.ViewHolder> {
+    WalletViewModel model;
+    LifecycleOwner owner;
 
-    public TxlistAdapter() {
-
+    public TxlistAdapter(WalletViewModel model, LifecycleOwner owner) {
+        this.model = model;
+        this.owner = owner;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         return new ViewHolder(FragmentTxlistBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.updateView(Wallet.getInstance().getTXs().get(position));
+        //holder.updateView(Wallet.getInstance().getTXs().get(position));
+        model.getTXList().observe(owner, new Observer<List<Wallet.TX>>() {
+            @Override
+            public void onChanged(List<Wallet.TX> txs) {
+                holder.updateView(txs.get(position));
+            }
+        });
     }
 
     @Override
