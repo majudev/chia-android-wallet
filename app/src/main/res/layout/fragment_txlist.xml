@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5sp"
+    android:textAlignment="center">
+
+    <LinearLayout
+        android:id="@+id/shortv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@drawable/txstate_entry_bg"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="5sp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/s_txstate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="5sp"
+                app:srcCompat="@drawable/txstate_ok" />
+
+            <ImageView
+                android:id="@+id/s_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="?attr/homeAsUpIndicator" />
+
+            <TextView
+                android:id="@+id/s_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/s_amount"
+            android:layout_width="150sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAlignment="viewEnd"
+            android:textColor="#4CAF50" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/longv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@drawable/txstate_entry_bg"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="5sp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/l_txstate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="5sp"
+                app:srcCompat="@drawable/txstate_ok" />
+
+            <ImageView
+                android:id="@+id/l_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="?attr/homeAsUpIndicator" />
+
+            <TextView
+                android:id="@+id/l_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/l_explore"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/ic_menu_view" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/l_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:text="Addrwertkjhwerkljthwelkjtrhwklejtrhwlkejrthwkletrhlk"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingRight="20sp">
+
+                <LinearLayout
+                    android:id="@+id/l_outgoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/l_sent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="viewEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txlist_sent"
+                            android:textAlignment="viewEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/l_fee"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="viewEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txlist_fee"
+                            android:textAlignment="viewEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="="
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/l_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txlist_total"
+                        android:textAlignment="viewEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/l_confirmations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

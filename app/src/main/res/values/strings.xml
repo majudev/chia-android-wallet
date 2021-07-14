@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Chia Wallet</string>
+    <string name="tab_text_1">Wallet</string>
+    <string name="tab_text_2">Transactions</string>
+
+    <string name="txlist_sent">Sent</string>
+    <string name="txlist_fee">Fee</string>
+    <string name="txlist_total">Total</string>
+    <string name="txlist_confirmations">You payment has</string>
+    <string name="txlist_confirmations2">confirmations.</string>
+    <string name="tx_explorer_link">https://google.pl/?q=</string>
+    <string name="tx_explorer_link2"></string>
+
+    <string name="wallet_balance">Balance:</string>
+    <string name="wallet_balance2">XCH</string>
+</resources>
